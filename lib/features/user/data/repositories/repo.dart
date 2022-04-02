@@ -51,5 +51,5 @@ class UserRepo implements IUserRepo {
   User? get user => FirebaseAuth.instance.currentUser;
 
   @override
-  Stream<User?> get userStream => FirebaseAuth.instance.authStateChanges();
+  Stream<User?> get userStream => FirebaseAuth.instance.userChanges();
 }

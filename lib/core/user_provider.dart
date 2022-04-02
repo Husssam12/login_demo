@@ -17,7 +17,7 @@ class UserProvider extends ChangeNotifier {
   late User _user;
 
   void _init() {
-    _user = _userFacade.user!;
+    user = _userFacade.user!;
     _streamSubscription = _userFacade.userStream.listen(_listener);
   }
 

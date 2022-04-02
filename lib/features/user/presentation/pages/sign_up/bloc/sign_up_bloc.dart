@@ -55,14 +55,18 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   Future<void> _mapSubmitted(Emitter<SignUpState> emit) async {
-    emit(SignUpLoading());
+    if (form.valid) {
+      emit(SignUpLoading());
 
-    final result = await _userFacade.signUp(SignUpParams.fromMap(
-      form.value,
-    ));
-    result.when(
-      success: (data) => emit(SignUpSuccess()),
-      failure: (message) => emit(SignUpFailure(message)),
-    );
+      final result = await _userFacade.signUp(SignUpParams.fromMap(
+        form.value,
+      ));
+      result.when(
+        success: (data) => emit(SignUpSuccess()),
+        failure: (message) => emit(SignUpFailure(message)),
+      );
+    } else {
+      form.markAllAsTouched();
+    }
   }
 }
